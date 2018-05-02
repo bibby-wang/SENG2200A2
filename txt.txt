@@ -137,9 +137,35 @@ P 6 4 0 4 8 7 8 7 3 9 0 7 1d
 它需要在PlanarShape类中正确使用compareTo <PlanarShape>方法的可比接口实现。
 您的SortedList也将被实例化为仅保存PlanarShape对象
 
-
-
 Program PA2:
+
+v1.15
+
+You will start PA2 from the finalised LinkedList class you created on the previous page. 
+To be clear: You are required to implement a circular doubly-linked list, using a single sentinel node to mark the start/finish of the list, which you should call LinkedList. 
+It should contain methods to prepend and append items into the list and a means of taking items from the head of the list. 
+It will not need a current item because any functionality requiring this should migrate to the iterator class for the LinkedList.
+The linked list previously just used Object references and casting to insert or access polygon objects into the list (or Polygon references to be explicitly stored in the list).
+We now require PlanarShape objects (references to them at least) to be the basis of the list, and we need to add type protection for this by way of a generic specification of the list and instantiation of the list so that it only allows <PlanarShape> objects to be inserted and accessed. 
+Your LinkedList must be Iterable and so you need to provide an iterator for your LinkedList class. This will only implement the standard iterator methods.
+The second list in your program will now be a SortedList, which can be designed as an extension of the first list. 
+It will need an insertInOrder() method (and any supporting attribute data) that will allow construction of the list by means of the insertion sort algorithm. 
+It will need to properly use the comparable interface implementation of the compareTo<PlanarShape> method from within the PlanarShape class. Your SortedList will also be instantiated to only hold PlanarShape objects.
+
+您将从您在前一页创建的最终LinkedList类中启动PA2。
+要清楚：您需要实现一个循环双向链表，使用单个标记节点来标记列表的开始/结束，您应该调用LinkedList。
+它应该包含用于在列表中添加项目和附加项目的方法，以及从列表头部获取项目的方法。
+它不需要当前项目，因为任何需要此功能的功能都应该迁移到LinkedList的迭代器类。
+之前的链接列表只是使用对象引用和强制转换来插入或访问多边形对象到列表中（或多边形引用要显式存储在列表中）。
+我们现在需要PlanarShape对象（至少引用它们）作为列表的基础，并且我们需要通过对列表的列表和实例化的通用规范来添加类型保护，以便它只允许<PlanarShape >要插入和访问的对象。
+你的LinkedList必须是可迭代的，所以你需要为你的LinkedList类提供一个迭代器。这只会实现标准的迭代器方法。
+程序中的第二个列表现在是一个SortedList，它可以被设计为第一个列表的扩展。
+它需要一个insertInOrder（）方法（以及任何支持的属性数据），这将允许通过插入排序算法来构建列表。
+它需要在PlanarShape类中正确使用compareTo <PlanarShape>方法的可比接口实现。您的SortedList也将被实例化为仅保存PlanarShape对象。
+
+
+
+
 Part 1:
 Program PA2 simply uses the same data as was used for PA1, and produces similar output (except for the slight POLY= change in the toString() output generated).
 The first main task is to read polygon specifications (until end of file, from standard input) and place them into an instance of your circular list, in input order.
