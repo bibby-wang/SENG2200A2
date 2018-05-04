@@ -10,7 +10,8 @@
 
 
 public class Polygon {
-	Point p=new Point(1,8);
+	
+	private Point p=new Point();
 	public Point getPoint(){
 		return p;
 	}

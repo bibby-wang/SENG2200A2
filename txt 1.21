@@ -1,0 +1,425 @@
+The University of Newcastle
+School of Electrical Engineering and Computer Science
+SENG2200 Programming Languages & Paradigms
+Semester 1, 2018
+Programming Assignment 2 - Due Friday April 27, 23:59pm
+Updates, changes and clarifications have been highlighted and highlighted for your convenience.
+Required Solution:
+
+The firm in Denman still believes that data structures that are hand-coded will run faster than those used from the Java libraries and so this is still required for your container types.
+Denman公司仍然认为手工编码的数据结构将比Java库中使用的数据结构运行得更快，因此这仍然是您的容器类型所必需的。
+
+However, once the true nature of generic structures was explained to them, they have decided that containers will use generic specifications and standard iterator interfaces.
+但是，一旦通用结构的真实性质向他们解释，他们就决定容器将使用通用规范和标准迭代器接口。
+
+
+Step 1:
+Your first task should be re-writing most of Assignment 1 in Java, in line with the following:
+This means you are required to:
+• Correctly initialise your Circular Doubly Linked List with Sentinel
+• Correctly structure your Circular Doubly Linked List with a Node class and MyPolygons class
+• Correctly enforce information hiding, and not expose any of the data structure or private member of MyPolgons (including returning Nodes)
+• Correctly extend MyPolygons to include the sorting functionality in a class called SortedPolygons
+• Create an interface called ComparePolygons, containing an abstract method compareTo(), and implement this interface on Polygon.
+
+步骤1：
+你的第一个任务应该是使用JAVA重写Assignment1 的大部分，符合以下内容：
+这意味着您需要：
+•使用Sentinel正确初始化您的圆形双链表
+•使用Node类和MyPolygons类正确地构建您的循环双向链表
+•正确执行信息隐藏，并且不公开MyPolgons的任何数据结构或私有成员（包括返回节点）
+•正确地扩展MyPolygons以在SortedPolygons类中包含排序功能
+•创建一个名为ComparePolygons的接口，其中包含一个抽象方法compareTo（），并在Polygon上实现此接口。
+
+This will change as you work through the specification – but for now, re-code your Assignment1 in Java, so you can implement Assignment 1 as it was intended.
+
+这将在您完成规范时发生变化 - 但现在，请使用Java对Assignment1 进行重新编码，以便您可以按预期执行Assignment 1。
+
+The Point class should be exactly the same as for assignment 1:
+The Point class simply has two floating point values for x and y coordinate values.
+It should have a method that will calculate the distance of the point from the origin.
+Point类应该与作业1完全相同：
+Point类只有x和y坐标值有两个浮点值。
+它应该有一个方法来计算点与原点的距离。
+
+Your Point class should also contain a toString() method which will allow the conversion of a Point object into a String of the form (xi,yi) – include the open and close parentheses in the String and use the same %4.2f format as for PA1.
+
+你的Point类还应该包含一个toString（）方法，该方法允许将Point对象转换为形式为（xi，yi）的字符串 - 在字符串中包含开放和关闭括号，并使用相同的%4.2f格式作为为PA1。
+
+This will be used for output of your results.
+
+这将用于输出结果。
+
+
+Designing with a view to extending your program in the future:
+We know from assignment 1 that we will need to deal with polygons, and we know how to do that.
+设计以期在未来扩展您的计划：
+我们从作业1知道我们需要处理多边形，并且我们知道如何做到这一点。
+
+However, it doesn’t take much thought to realize that there are many shapes other than polygons (even when we remember that rectangles and squares are also polygons).
+So a completely different approach is needed to the design.
+然而，认识到除了多边形之外还有许多形状（即使我们记得矩形和正方形也是多边形）并不需要太多的考虑。
+所以需要设计完全不同的方法。
+
+This will include an abstract class that other classes will inherit from.
+Write an abstract PlanarShape class.
+这将包括一个其他类将继承的抽象类。
+写一个抽象的PlanarShape类。
+
+It will have an abstract toString() method for printing results, an abstract area() method and an abstract originDistance() method.
+它将有一个用于打印结果的抽象toString（）方法，一个抽象area（）方法和一个abstract originDistance（）方法。
+Note that even though we know how to implement each of these for Polygon which have been modelled as a sequence of vertices, we cannot implement them for other PlanarShapes until we know exactly what these shapes are, and how they are to be represented in the program.
+
+请注意，即使我们知道如何对已经建模为顶点序列的多边形实现这些，但我们无法将其应用于其他PlanarShapes，除非我们确切知道这些形状是什么，以及它们如何在程序中表示。
+
+PlanarShape has an ordering based on area() and originDistance() as previously was the case for Polygon.
+
+PlanarShape有一个基于area（）和originDistance（）的排序，就像之前Polygon的情况一样。
+
+If any two PlanarShape objects have areas within 0.005 units of each other, then they are assumed to have equal area, in which case, the planar shape with the lower originDistance() takes precedence.
+Because we need to be able to compare PlanarShape, we also need to use the standard Comparable<T> interface, using the specification implements Comparable<PlanarShape>.
+
+如果任何两个PlanarShape对象的面积都在0.005个单位之内，则假定它们具有相同的面积，在这种情况下，具有较低originDistance（）的平面形状优先。
+因为我们需要能够比较PlanarShape，所以我们还需要使用标准的Comparable <T>接口，使用规范实现Comparable <PlanarShape>。
+
+
+Step 2:
+The Polygon class is similar to Assignment 1 but will require a re-design because of the above.
+第2步：
+Polygon类与Assignment 1类似，但由于上述原因需要重新设计。
+
+As per PA1, the area of a polygon, specified on the Cartesian plane by its vertices, is given as follows:
+
+根据PA1，在笛卡尔平面上由其顶点指定的多边形区域如下给出：
+e.g.
+
+Note that for a six sided figure, such as the one shown, n is 7, because the last point describing the polygon is equal to the first (it is always the same Cartesian point).
+The special thing about a Polygon now, is that it is a PlanarShape.
+请注意，对于一个六面体的图形，如图所示，n是7，因为描述多边形的最后一个点等于第一个（它总是相同的笛卡尔点）。
+现在关于Polygon的特别之处在于它是一个PlanarShape。
+
+The Polygon class has an array of Point objects representing the vertices of the polygon.
+
+Polygon类具有表示多边形顶点的Point对象数组。
+
+Your Polygon class should contain a toString() method which will allow the conversion of a Polygon object into a String of the form POLY=[point0… pointn-1]: area_value and this will use the same format for area as PA1.
+
+您的Polygon类应包含一个toString（）方法，该方法允许将Polygon对象转换为POLY = [point0 ... pointn-1]：area_value形式的字符串，并且这将使用与PA1相同的区域格式。
+
+This will be used for output of your results.
+这将用于输出结果。
+
+The Polygon class also has an implementation of the area() method, given by the formula above.
+
+
+Polygon类还有一个由上面的公式给出的area（）方法的实现。
+We will now have to implement the method originDistance() for this class as well, calculated as it was in PA1.
+我们现在必须为这个类实现方法originDistance（），并按照它在PA1中的计算。
+The polygons have an ordering based on area and originDistance() as before, however this will be done by way of the PlanarShape class.
+多边形像之前一样根据面积和originDistance（）进行排序，但这将通过PlanarShape类完成。
+
+When data for a polygon is input it will be of the same form, e.g.
+当输入多边形的数据时，它将具有相同的形式，例如，
+P 6 4 0 4 8 7 8 7 3 9 0 7 1
+
+As was used in the first assignment, that is, the letter P, then the number of sides (6), then 6 pairs of values for the 6 vertices.
+正如第一项任务中所用的那样，即字母P，边数（6），然后是6个顶点的6对值。
+
+
+Step 3:第3步：
+The Linked List classes will also require re-design to use generics and iterator(s):
+链接列表类还需要重新设计才能使用泛型和迭代器：
+
+You are also required to implement a circular doubly-linked list, using a single sentinel node to mark the start/finish of the list, which you should call LinkedList.
+您还需要实现一个循环双向链表，使用单个标记节点标记列表的开始/结束，您应该调用LinkedList。
+
+It should contain methods to prepend and append items into the list and a means of taking items from the head of the list.
+它应该包含用于在列表中添加项目和附加项目的方法，以及从列表头部获取项目的方法。
+
+It will not need a current item because any functionality requiring this should migrate to the iterator class for the LinkedList.它不需要当前项目，因为任何需要此功能的功能都应该迁移到LinkedList的迭代器类。
+
+The linked list previously just used Object references and casting to insert or access polygon objects into the list (or Polygon references to be explicitly stored in the list).
+之前的链接列表只是使用对象引用和强制转换来插入或访问多边形对象到列表中（或多边形引用要显式存储在列表中）。
+
+We now require PlanarShape objects (references to them at least) to be the basis of the list, and we need to add type protection for this by way of a generic specification of the list and instantiation of the list so that it only allows <PlanarShape> objects to be inserted and accessed.
+我们现在需要PlanarShape对象（至少引用它们）作为列表的基础，并且我们需要通过对列表的列表和实例化的通用规范来添加类型保护，以便它只允许<PlanarShape >要插入和访问的对象。
+
+Your LinkedList must be Iterable and so you need to provide an iterator for your LinkedList class.
+This will only implement the standard iterator methods.
+你的LinkedList必须是可迭代的，所以你需要为你的LinkedList类提供一个迭代器。
+这只会实现标准的迭代器方法。
+
+The second list in your program will now be a SortedList, which can be designed as an extension of the first list.
+程序中的第二个列表现在是一个SortedList，它可以被设计为第一个列表的扩展。
+
+It will need an insertInOrder() method (and any supporting attribute data) that will allow construction of the list by means of the insertion sort algorithm.
+它需要一个insertInOrder（）方法（以及任何支持的属性数据），这将允许通过插入排序算法来构建列表。
+
+It will need to properly use the comparable interface implementation of the compareTo<PlanarShape> method from within the PlanarShape class.
+它需要在PlanarShape类中正确使用compareTo <PlanarShape>方法的可比接口实现。
+
+Your SortedList will also be instantiated to only hold PlanarShape objects.
+您的SortedList也将被实例化为仅保存PlanarShape对象。
+
+============================================
+Program PA2:
+You will start PA2 from the finalised LinkedList class you created on the previous page.
+计划PA2：
+您将从您在前一页创建的最终LinkedList类中启动PA2。
+
+To be clear: You are required to implement a circular doubly-linked list, using a single sentinel node to mark the start/finish of the list, which you should call LinkedList.
+要清楚：您需要实现一个循环双向链表，使用单个标记节点来标记列表的开始/结束，您应该调用LinkedList。
+It should contain methods to prepend and append items into the list and a means of taking items from the head of the list.
+
+它应该包含用于在列表中添加项目和附加项目的方法，以及从列表头部获取项目的方法。
+It will not need a current item because any functionality requiring this should migrate to the iterator class for the LinkedList.
+The linked list previously just used Object references and casting to insert or access polygon objects into the list (or Polygon references to be explicitly stored in the list).
+它不需要当前项目，因为任何需要此功能的功能都应该迁移到LinkedList的迭代器类。
+之前的链接列表只是使用对象引用和强制转换来插入或访问多边形对象到列表中（或多边形引用要显式存储在列表中）。
+We now require PlanarShape objects (references to them at least) to be the basis of the list, and we need to add type protection for this by way of a generic specification of the list and instantiation of the list so that it only allows <PlanarShape> objects to be inserted and accessed.
+
+我们现在需要PlanarShape对象（至少引用它们）作为列表的基础，并且我们需要通过对列表的列表和实例化的通用规范来添加类型保护，以便它只允许<PlanarShape >要插入和访问的对象。
+Your LinkedList must be Iterable and so you need to provide an iterator for your LinkedList class.
+This will only implement the standard iterator methods.
+你的LinkedList必须是可迭代的，所以你需要为你的LinkedList类提供一个迭代器。
+这只会实现标准的迭代器方法。
+
+The second list in your program will now be a SortedList, which can be designed as an extension of the first list.
+
+程序中的第二个列表现在是一个SortedList，它可以被设计为第一个列表的扩展。
+
+
+It will need an insertInOrder() method (and any supporting attribute data) that will allow construction of the list by means of the insertion sort algorithm.
+它需要一个insertInOrder（）方法（以及任何支持的属性数据），这将允许通过插入排序算法来构建列表。
+
+It will need to properly use the comparable interface implementation of the compareTo<PlanarShape> method from within the PlanarShape class.
+Your SortedList will also be instantiated to only hold PlanarShape objects.
+它需要在PlanarShape类中正确使用compareTo <PlanarShape>方法的可比接口实现。
+您的SortedList也将被实例化为仅保存PlanarShape对象。
+
+To be clear, insertInOrder() will take an item (note a Node), and insert this item into the list, in the order that you have defined with your compareTo() method; it will not do an internal bubblesort, or any other manner of sorting.
+为了清楚起见，insertInOrder（）将获取一个项目（注意一个Node），并按照您使用compareTo（）方法定义的顺序将此项目插入列表中;它不会执行内部冒泡或任何其他排序方式。
+
+All sorting is to be done when the item is inserted into the list!
+所有的排序都是在项目被插入到列表中时完成的！
+
+
+Part 1:
+Program PA2 simply uses the same style data as was used for PA1, and produces similar output (except for the preface change (eg POLY=) in the toString() output generated).
+The first main task is to read polygon specifications (until end of file, from standard input) and place them into an instance of your circular list, in input order.
+Each Polygon will be specified in the input by the letter P, followed by the number of sides the polygon has (ie n-1), and then pairs of numbers which represent the respective
+vertices on the Cartesian plane (x-value then y-value), which means vertices p0 to pn-2 from the above formula.
+1部分：
+程序PA2只是使用与PA1相同的样式数据，并产生类似的输出（除了在生成的toString（）输出中的前缀改变“如POLY =”之外）。
+第一个主要任务是读取多边形规范（直到文件结束，从标准输入），并按照输入顺序将它们放入循环列表的实例中。
+每个多边形将在字母P的输入中指定，然后是多边形的边数（即n-1），然后是代表各自的数字对
+在笛卡尔平面上的顶点（x值然后是y值），这意味着从上面的公式得到顶点p0到pn-2。
+You do not have to worry about any of the data being missing, or out of order.
+您不必担心任何数据丢失或失灵。
+
+It will probably be best for your polygon objects to contain all n points, that is, explicitly including the last vertex as a copy of the first.
+ 
+对于多边形对象来说，最好包含所有的n个点，也就是将最后一个顶点明确地包含为第一个顶点的副本。
+You are then to produce a second list, which contains the Polygon objects, sorted into “increasing area/origin-distance order”. 
+然后您将生成第二个列表，其中包含排列为“增加面积/原点距离订单”的多边形对象。        
+
+This is to be done by iterating through the first list and placing the polygons into the second list using an insertion sort algorithm.
+这是通过遍历第一个列表并使用插入排序算法将多边形放置到第二个列表中完成的。
+ 
+
+However, notice that at no time does your program need to know that these are Polygon objects – the design simply refers to them as PlanarShape objects, and each PlanarShape decides that it is a Polygon and responds to any request accordingly.
+但是，请注意，您的程序在任何时候都不需要知道这些是Polygon对象 - 设计只是将它们称为PlanarShape对象，并且每个PlanarShape都决定它是一个Polygon并相应地响应任何请求。
+
+The PlanarShape compareTo() method will be able to fetch the Polgon values of area() and originDistance() because of the polymorphism capability that Java provides.
+由于Java提供的多态性功能，PlanarShape compareTo（）方法将能够获取area（）和originDistance（）的Polgon值。
+Output for PA2 is a complete print of both your lists (i.e. the polygons in input order, and then the polygons in sorted order, listing the area of each).
+
+PA2的输出是您的列表（即输入顺序中的多边形，然后是按排序顺序的多边形，列出每个区域的面积）的完整打印。
+
+The output should also be produced using iterators to visit the objects in the lists, to the same %4.2f and %5.2f standards as for PA1.
+Another key to making this design easy to extend is for PA2 to use a factory method to produce polygon objects and return them using a PlanarShape reference.
+输出也应该使用迭代器访问列表中的对象，与PA1使用相同的%4.2f和%5.2f标准。
+使此设计易于扩展的另一个关键是PA2使用工厂方法生成多边形对象并使用PlanarShape参考返回它们。
+
+For example:
+PlanarShape shapeFactory( )
+{
+	PlanarShape shape;
+	Read the identification character;
+	switch (id_char)
+	{
+		case ‘P’:
+			read in polygon data;
+			shape = new Polygon (...data as input...);
+			return shape;
+			break;
+		default:
+			Report an error – invalid input type;
+	}
+}
+
+
+
+Part 2:
+This program should now be able to make use of this design to extend the program so that it can process both circle objects and semi-circle objects, while making minimal changes to code written so far.
+
+Almost all the new code for these objects will reside in separate new classes.
+这个程序现在应该能够利用这个设计来扩展程序，以便它可以处理圆对象和半圆对象，同时对迄今编写的代码进行最小的改变。
+几乎所有这些对象的新代码将驻留在不同的新类中。
+
+Circle objects are specified by a Point which is the centre of the circle and a floating point value which is the radius of the circle.
+The area of a circle is the usual pi-r-squared calculation, while its origin distance is simply the distance of the centre from the origin.
+圆对象由圆的中心的点和圆的半径的浮点值指定。
+圆的面积是通常的pi-r-squared计算，而其原点距离仅仅是中心距原点的距离。
+
+Its toString() method produces the string CIRC=[point0 radius]: area_value.
+Input data for a circle object is C x0 y0 r.
+The originDistance() of a circle is given as the distance from the origin of the centre minus the radius (possibly negative).
+它的toString（）方法产生字符串CIRC = [point0 radius]：area_value。
+圆形对象的输入数据是C x0 y0 r。
+圆的原点距离（）是从中心原点到半径（可能为负）的距离。
+
+SemiCircle objects are specified by a Point which is the centre of the base of the semicircle, and a second Point which specifies the point on the semi-circle at the end of the perpendicular to the base.
+SemiCircle对象由一个Point指定，该Point是半圆的基底的中心，第二个Point指定在与基底垂直的半圆上的点。
+
+The radius of the semi-circle is the length of the perpendicular vector, and so the area of the semi-circle is simply πr2/2.
+半圆的半径是垂直向量的长度，所以半圆的面积就是πr2/ 2。
+It’s toString() method produces the string SEMI=[point0 point1]: area_value.
+它的toString（）方法产生字符串SEMI = [point0 point1]：area_value。
+An input data specification for a semi-circle object is S x0 y0 x1 y1.
+一个半圆对象的输入数据规范是S x0 y0 x1 y1。
+The originDistance() of a semicircle is given as the distance from the origin of the closest of the two data points and the two base extremity points.
+
+给出半圆的originDistance（）作为从两个数据点中最接近的点的起点到两个基点的距离。
+
+You are required to calculate the two data points on the base extremity points – your first-year vector mathematics should help you here (creating a vector from two co-ords, and finding the normal to a vector… for example).
+Once again, all output will be to the same standard as PA1, with the same %4.2f (for points) and %5.2f (for area) formatting (which is SO much easier in Java!).
+您需要计算基点上的两个数据点 - 第一年的矢量数学应该可以帮助您（例如，从两个合作伙伴创建一个矢量，并找到矢量的法线）。
+再一次，所有输出将与PA1的标准相同，具有相同的 %4.2f （对于点）和 %5.2f （对于区域）格式（这在Java中更容易！）。
+
+<<By extending your factory method of program PA2a to construct the objects required, no further changes should be needed to the classes from PA2a to PA2b.(this was an artefact from a previous specification)>>
+<<通过扩展程序PA2a的工厂方法来构造所需的对象，不需要对从PA2a到PA2b的类进行进一步的更改（这是以前规范中的一种人造物）>>
+
+
+Notes:
+
+You will be tempted to use your Iterator for all sorts of tasks; at this point, only use your Iterator for tasks that WILL NOT AFFECT THE CONTENTS of your List – such as output, or getting an item out of one list, to insert into the other.
+For Iterator you will ONLY implement:
+你会很想用你的迭代器来完成各种任务;此时，只使用您的迭代器来处理不会影响列表内容的任务 - 例如输出或从一个列表中获取项目以插入另一个列表。
+对于迭代器，您只会实现：
+• hasNext()
+• next()
+• remove()
+
+
+No other Iterator methods will be implemented – therefore you should be using the Iterator interface, and not ListIterator, or any of the other many Iterator types (initially I was not going to enforce this, but after seeing how many people have just gone off and mis-used List Iterator in ways that ignores the previous paragraph, I have to tighten this up!).
+没有其他Iterator方法会被实现 - 因此您应该使用Iterator接口，而不是使用ListIterator或其他任何Iterator类型（最初我不会强制执行此操作，但在看到有多少人刚刚离开后错误使用的List Iterator忽略了前一段，我必须收紧它！）。
+
+Your Iterator will NOT be responsible for inserting (that is the role of the insertInOrder() method), nor any form of List manipulation – if your list is changed while the Iterator is operating over it, it should be caught and a new ConcurrentModificationException exception thrown.
+您的迭代器不会负责插入（即insertInOrder（）方法的作用），也不负责任何形式的List操作 - 如果在Iterator操作它时更改了列表，则应该捕获它并产生新的ConcurrentModificationException异常抛出。
+
+Note that remove() is optional, in the Iterator interface, however some Java versions appear to require some implementation to be provided – so for remove() you will just code it to throw new UnsupportedOperationException, if it is called.
+请注意，在Iterator接口中，remove（）是可选的，但是某些Java版本似乎需要提供一些实现 - 因此对于remove（），如果调用它，则只需编码它就会抛出新的UnsupportedOperationException。
+
+
+I also suggest that you get your LinkedList and SortedList working independently of the PlanarShapes; 
+it will make your life easier if you know the LLists are reliable, before you start trying to insert PlanarShapes using the insertInOrder() method.
+
+我还建议你让你的LinkedList和SortedList独立于PlanarShapes工作;
+如果您知道LLists是可靠的，那么在开始尝试使用insertInOrder（）方法插入PlanarShapes之前，它会让您的生活更轻松。
+
+A really good way to test your LLists is with the java Integer object (not the primitive int, but the wrapper object Integer).
+测试LLists的一个很好的方法是使用Java Integer对象（不是原始的int，而是包装对象Integer）。
+
+At no time will you need to expose Nodes outside of the LLists, nor will you need to pass Nodes between the LLists – you will simply be dealing with PlanarShapes outside of the LLists.
+在任何时候你都不需要暴露LLists之外的节点，也不需要在LLists之间传递Nodes - 你只需要在LLists之外处理PlanarShapes。
+
+It is your responsibility to look up the correct means of implementation for the Iterable and Comparable Interfaces in Java.
+您有责任在Java中查找适用于Iterable和Comparable Interfaces的正确方法。
+
+
+
+
+Written Report:
+书面报告：
+As you design, write and test your solution, you are to keep track of and report on the following:在设计，编写和测试解决方案时，您需要跟踪并报告以下内容：
+1. For each of the programs keep track of how much time you spend designing, coding and correcting errors, and how many errors you need to correct.1.为每个程序记录您花费多少时间进行设计，编码和纠正错误，以及需要纠正多少错误。
+
+为这个新程序绘制UML类图（不需要复杂的细节）。您需要哪种属性数据？
+2. Keep a log of what proportion of your errors come from design errors and what proportion from coding/implementation errors.
+2.记录您的错误占设计错误的比例，以及编码/实现错误的比例。
+
+3. Provide a (brief) design of how you would further extend your PA2 so that it specifically included Triangle and Square figures, with their own ‘T’ or ‘Q’ input designations respectively.
+Draw the UML class diagram for this new program (intricate detail not required).
+What attribute data do you need in each case?
+
+3.提供一个（简短）设计，说明如何进一步扩展PA2，以便它们分别包含三角形和方形数字，分别带有自己的“T”或“Q”输入指定。
+
+4. Investigate the mathematical structure of an Ellipse on the Cartesian plane.
+
+
+How would you model the Ellipse? How would you then calculate its area and originDistance()? How would this be incorporated into your program? Draw another UML class diagram to show this.
+4.调查笛卡尔平面上椭圆的数学结构. 
+你将如何模拟Ellipse？ 那么你将如何计算其面积和originDistance（）？ 这将如何纳入您的计划？ 绘制另一个UML类图来展示这一点。
+
+
+
+Submission: Submission is to the Assignments Tab for SENG2200 on Blackboard, under the entry Submit PA2.
+提交：提交至Blackboard上SENG2200的作业选项卡，在提交PA2条目下。
+This allows you to submit the assignment for it to be available for grading.
+
+这允许您提交作业以供评分。
+If you find errors after submission, then you may re-submit your assignment, but only the last submission will be graded.
+
+如果您在提交后发现错误，那么您可以重新提交您的作业，但只有最后一次提交将会被评分。
+The written report is to be submitted as part of the online submission outlined below, and so you need to finish the program(s) with enough time to spare in order to complete the written report.
+Remember to include an Assessment Item Cover Sheet with your submission.
+
+书面报告将作为下面列出的在线提交的一部分提交，因此您需要完成程序并留出足够的时间来完成书面报告。
+请记住在提交时加入评估项目封面。
+<<You are to write two programs in Java, these programs will have a driver classes called PA2.>>
+You are to write one program in Java, that will have a driver classes called PA2.
+<<你要用Java编写两个程序，这些程序将有一个称为PA2的驱动程序类。>>
+您将用Java编写一个程序，该程序将具有称为PA2的驱动程序类。
+
+Please submit a single file called c9999999PA2.zip (where 9…9 is your student number); do not submit .rar or .gz or any other type of archive file.
+Your submission must contain a) an assessment item cover sheet, b) the written report, and c) your program source files.
+For this assignment, the written report will be worth 10% of the assignment mark; it should be about 2 or 3 A4 pages of work.
+Submit only the PA2 section of this spec – I do not need to see your re-written PA1.
+
+
+请提交一个名为c9999999PA2.zip的文件（其中9 ... 9是您的学号）;请勿提交.rar或.gz或任何其他类型的档案文件。
+您的提交必须包含a）评估项目封面，b）书面报告，以及c）您的程序源文件。
+对于这项任务，书面报告将占作业标志的10％;它应该是大约2或3页A4的工作。
+仅提交本规范的PA2部分 - 我不需要看到您重写的PA1。
+
+A Warning: You will be tempted to copy the design already implemented for assignment 1.
+警告：您将被诱惑复制已为分配1实施的设计。
+
+This may cause significant problems as your program design has not followed the best Object Oriented analysis techniques, and this is likely to present problems as you update code.
+Always be ready to go back to square 1 and start again on your implementation.
+这可能会导致重大问题，因为您的程序设计没有遵循最佳的面向对象分析技术，这可能会在更新代码时出现问题。
+始终准备好回到方块1并重新开始实施。
+
+Coding Language and Compilation:
+编码语言和编译：
+Programming is in Java, and will be compiled against Java 1.8, as per the standard lab environment.
+编程采用Java编程，并将根据标准实验室环境针对Java 1.8进行编译。
+
+Name your startup class PA2 (capital-P capital-A number-2), that is, the marker will expect to be able compile your program with the command: javac PA2.java …and to run your program with the command: java PA2 test.dat …within a Command Prompt window.
+NOTE: Your application will run and take data from a standard text file (in the form given above) which will include multiple shape definitions – note: that you may assume that that number of points specified for the shape will always be correct – and will be specified from the command line, in form java PA2 test.dat It is expected that PA2 will a) be in the root of your submission folder, and b) compile the entire project without any special requirements (including additional software).
+You may include a readme.txt file, if you require any special switches or compilation method to be used; but this may incur a penalty if you stray too far from the above guide lines.
+You may only use Java libraries for input and output.
+
+
+将您的启动类命名为PA2（capital-P capital-A number-2），也就是说，标记预计能够使用以下命令编译您的程序：javac PA2.java ...并使用以下命令运行程序：java PA2 test.dat ...在命令提示符窗口中。
+注意：您的应用程序将运行并从标准文本文件（以上面给出的形式）获取数据，其中包含多个形状定义 - 注意：您可能会认为为该形状指定的点数总是正确的 - 并且将从命令行指定，格式为java PA2 test.dat预计PA2将a）位于提交文件夹的根目录中，b）编译整个项目时没有任何特殊要求（包括附加软件）。
+如果您需要使用任何特殊开关或编译方法，您可以包含一个readme.txt文件;但是如果你偏离上述指导方针，这可能会受到惩罚。
+您只能使用Java库进行输入和输出。
+
+
+All input to the program will come from standard input.
+
+程序的所有输入都来自标准输入。
+All output is to standard output.
+Dan (SENG2200 Tutor) version 1.2 2018-05-02

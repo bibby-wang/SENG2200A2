@@ -30,7 +30,7 @@ public class MyPolygons<T> {
 	
 	public void append(T newData){
 		
-		if (size==0){
+		if (size<0){
 			head.setData(newData);//if empty add into head
 		}
 		else{
@@ -49,9 +49,9 @@ public class MyPolygons<T> {
 		String ssss="";
 		int c=size;
 		sentinel = head;
-		while(c>0){
+		while(sentinel.getNext()!=head){
 			
-			ssss+=sentinel.getData().toString();
+			ssss+=sentinel.getNext().getData().toString();
 			sentinel=sentinel.getNext();
 			c--;
 		}
