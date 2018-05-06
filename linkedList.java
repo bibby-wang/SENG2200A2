@@ -7,13 +7,15 @@
 // Author: Binbin Wang
 // Modified by: Binbin Wang
 // Student No: 3214157
-public class MyPolygons<T> {
-	private int size;          // ±íÖĞÔªËØµÄÊıÁ¿
-	private Node<T> sentinel = new Node<>();       // ÉÚ±ø½Úµã
-	private Node<T> head = new Node<>();       //Í·½Úµã
+public class LinkedList<T> {
+	private int size;          // è¡¨ä¸­å…ƒç´ çš„æ•°é‡
+	private Node<T> sentinel = new Node<>();       // å“¨å…µèŠ‚ç‚¹
+	private Node<T> head = new Node<>();       //å¤´èŠ‚ç‚¹
 	
 //Constructors
-	public MyPolygons() {
+	public LinkedList() {
+		head=null;
+		sentinel=null;
 		size=0;
 	}
 	
@@ -22,14 +24,9 @@ public class MyPolygons<T> {
 	}
 	
 //add a polygon
-	public MyPolygons(T newData){
-		Node<T> newNode = new Node<>();//new node
-		newNode.setData(newData);//set data to new Node		
-		newNode.setPrevious(head); //link the new node to tail (Previous->tail)
-		newNode.setNext(head);	//link the new Node to tail (Next->head)
-		head.setNext(newNode);//old tail Next->new node
-		head.setPrevious(newNode);//head Previous->new node
-		size++;
+	public LinkedList(T newData){
+		//head.setData(newData);
+		//size++;
 	}
 	
 	//added before the head point
@@ -61,15 +58,21 @@ public class MyPolygons<T> {
 	}
 	
 	
+	private Node getFromHead(){
+		return;
+	}
+
+	
+	
 	public String outPutString(){
 		String outPutString="";
-		int c=size;
+		int count=size;
 		sentinel = head;
 		while(sentinel.getNext()!=head){
 			
-			outPutString+=sentinel.getNext().getData().toString()+"\n";
+			outPutString+=sentinel.getNext().getData().toString();
 			sentinel=sentinel.getNext();
-			c--;
+			count--;
 		}
 		return outPutString;
 	}

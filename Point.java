@@ -11,7 +11,9 @@ public class Point {
 
 	private double x,y;//the point x y
 	public Point(){
-	}	
+		x=0.0;
+		y=0.0;
+	}
 	public Point(double inputX,double inputY){
         x=inputX;
 		y=inputY;
@@ -33,7 +35,15 @@ public class Point {
 		String strY=String.format("%5.2f",y);
 		return "("+strX+","+strY+")";
 	}
-	//distanceOrigin()
+	public double distanceOrigin(){
+		double distanceOrigin=0.0;
+		double xx=x*x;
+		double yy=y*y;
+		distanceOrigin=Math.sqrt(xx+yy);
+		
+		return distanceOrigin;
+		
+	}
 	
 
 

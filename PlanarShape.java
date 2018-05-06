@@ -1,4 +1,4 @@
-// The University of Newcastle
+//The University of Newcastle
 // School of Electrical Engineering and Computer Science
 // SENG2200 Programming Languages & Paradigms
 // Semester 1, 2018
@@ -7,7 +7,12 @@
 // Author: Binbin Wang
 // Modified by: Binbin Wang
 // Student No: 3214157
-public interface ComparePolygons<T>{
-	public void compareTo(T t);
-
+public class PlanarShape{
+	public shortPoygon(){
+		
+		
+	}	
+	
+	
+	
 }

@@ -15,38 +15,62 @@ public class PA2 {
    public static void main(String[] args) {
 		
 		System.out.println("==========START==========");
-		System.out.println("=====================");
+		System.out.println("=========GET DATA FILE============");
+		String fileName=args[0];
+		MyPolygons<Polygon> myPolygons = new MyPolygons<>();
+		try{
+			
+			Scanner inputStream = new Scanner (new File (fileName));//get the database name 
+			String dataStr=null;
+			int i=0;
+			//get the all data by each line
+			while (inputStream.hasNextLine ())
+			{i++;
+				dataStr = inputStream.nextLine ();
+				//check the empty line
+	System.out.println(i+"=========test get point data============");
+				Polygon newPolygon =new Polygon();
+				//String dataStr="P 6 2 2 4 6 11 8 7 4 9 1 5 1";
+				newPolygon.setPoints(dataStr);
+	
+				myPolygons.append(newPolygon);
 
+				
+			}
+			inputStream.close ();	
+			
+			
+		}catch(Exception erro){
+			System.out.println(erro.toString());	
+		}
+	
 		
-		System.out.println("=========test point============");
-		Point p1= new Point(1,8.335);
-		Point p2= new Point(1.5,333.335);
-		Point p3= new Point(3.3,333.335);
-		Point p4= new Point(4.889,333.335);
 		
-		System.out.println(p1.getX());
-		System.out.println(p2.toString());		
+		System.out.println("========ouput datas=============");
 
-		System.out.println("=========test node============");
-		MyPolygons<Point> myP = new MyPolygons<>();		
-		myP.append(p1);
-		myP.append(p2);
-		myP.append(p3);
-		myP.append(p4);
+		System.out.println(myPolygons.outPutString());		
 		
-		System.out.println("==="+myP.get());
+		System.out.println("=====================");
 		System.out.println("=====================");
 		System.out.println("=====================");
 		System.out.println("=====================");
 		
 		
 		System.out.println("=====================");
-		
-		
-		
-		
-		
-		
+			
 		
    }
+   
+
+   
 }
+
+
+
+
+
+
+
+
+
+
