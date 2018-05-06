@@ -7,11 +7,12 @@
 // Author: Binbin Wang
 // Modified by: Binbin Wang
 // Student No: 3214157
-public class PlanarShape{
-	public shortPoygon(){
-		
-		
-	}	
+public abstract class PlanarShape{
+	//public void shortPoygon(){};	
+	abstract double area();
+	void setPoints(String data){};
+	public abstract String toString();
+	//abstract double originDistance();
 	
 	
 	

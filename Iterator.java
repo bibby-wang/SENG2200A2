@@ -7,7 +7,10 @@
 // Author: Binbin Wang
 // Modified by: Binbin Wang
 // Student No: 3214157
-public interface ComparePolygons{
-	public int compareTo(Polygon comparePoly);
+public interface Iterator<E>{
+	
+	public boolean hasNext();
+	public E next();
+	public void remove();
 
 }

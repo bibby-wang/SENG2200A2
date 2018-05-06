@@ -17,7 +17,7 @@ public class PA2 {
 		System.out.println("==========START==========");
 		System.out.println("=========GET DATA FILE============");
 		String fileName=args[0];
-		MyPolygons<Polygon> myPolygons = new MyPolygons<>();
+		LinkedList<Polygon> myPolygons = new LinkedList<>();
 		try{
 			
 			Scanner inputStream = new Scanner (new File (fileName));//get the database name 
@@ -43,19 +43,19 @@ public class PA2 {
 		}catch(Exception erro){
 			System.out.println(erro.toString());	
 		}
-	
+	SortedList sortedList = new SortedList();
 		
 		
 		System.out.println("========ouput datas=============");
 
-		System.out.println(myPolygons.outPutString());		
+		System.out.println(myPolygons.toString());		
 		
 		System.out.println("=====================");
 		System.out.println("=====================");
 		System.out.println("=====================");
 		System.out.println("=====================");
 		
-		
+
 		System.out.println("=====================");
 			
 		

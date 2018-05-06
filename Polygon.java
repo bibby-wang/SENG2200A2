@@ -9,30 +9,32 @@
 // Student No: 3214157
 
 
-public abstract class Polygon implements ComparePolygons{
+public class Polygon extends PlanarShape implements ComparePolygons{
 	
 	private Point[] points;
 	private double area_value;
 	
 	//????????????????????????
-	public void compareTo(Polygon comparePoly){
-		/*
+	
+	public int compareTo(Polygon comparePoly){
+/*	*/	
 		//p>o,p<o
-		if (area_value*1.005<comparePoly.getArea()){
+		if (area_value*1.005<comparePoly.area()){
 			return -1;
 		}
-		else if(area_value*0.995>comparePoly.getArea()){
+		else if(area_value*0.995>comparePoly.area()){
 			return 1;
 		}
-		
+	
 		return 0;
-*/
-		
+	
+			
 	}
 	//private Point [] pints=new Point[];
-	public double getArea(){
+	public double area(){
 		return area_value;
 	}
+	
 	public void setPoints(String data){
 		
 		String[] pointsData=data.split(" ");
@@ -94,7 +96,7 @@ public abstract class Polygon implements ComparePolygons{
 	}
 	
 	
-	
+
 //您的Polygon类应包含一个 toString() 方法，该方法允许将Polygon对象转换为POLY = [point0 ... pointn-1]：area_value形式的字符串，并且这将使用与PA1相同的区域格式。	
 	
 	

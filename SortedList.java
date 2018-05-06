@@ -7,7 +7,6 @@
 // Author: Binbin Wang
 // Modified by: Binbin Wang
 // Student No: 3214157
-public interface ComparePolygons{
-	public int compareTo(Polygon comparePoly);
-
+public class SortedList<E> extends LinkedList<E> {
+	
 }
